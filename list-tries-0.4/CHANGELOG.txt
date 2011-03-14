@@ -1,0 +1,45 @@
+2010-09-11, 0.4:
+	Fixed documentation of the 'deletePrefix' function: if the given key is not
+	a prefix of any key, an empty, not unchanged, map/set is returned. Thanks to
+	Brian Bloniarz for the bug report.
+
+	Fixed bug in the Patricia version of 'deletePrefix' causing it to not delete
+	anything if the prefix to be deleted was a proper prefix of the common
+	prefix.
+
+	Changed 'children' to return the map as-is instead of converting it into a
+	list first:
+
+		children :: Trie trie st map k => trie map k a -> CMap trie map k a
+
+	Added the 'children1' function as a single-level equivalent of 'children',
+	more directly reflecting the structure of the non-Patricia tries. Requested
+	by Brian Bloniarz.
+
+		children1 :: Trie trie st map k => trie map k a -> CMap trie map k a
+
+2010-09-09, 0.3:
+   Fixed strictness of the strict versions of the following non-Patricia
+   functions: insert, adjust, alter, union, difference, intersection,
+   mapInKeys; as well as the Patricia versions of insert and adjust. Thanks to
+   Brian Bloniarz for the bug report.
+
+   Applied the static argument transformation throughout, improving
+   performance.
+
+   Dropped support for containers < 0.3; GHC 6.12 has been out long enough, and
+   support for older versions is too crippled to make it worthwhile.
+
+2010-04-06, 0.2:
+	Dependency update, nothing more.
+
+2009-07-05, 0.1:
+	All tries are now instances of Binary, thanks to Gregory Crosswhite. Adds a
+	dependency on the 'binary' library as well as the following two methods to
+	the Map class in Base.Map:
+
+		serializeToList     :: m k a -> [(k,a)]
+		deserializeFromList :: [(k,a)] -> m k a
+
+2009-04-21, 0.0:
+	Initial release.
